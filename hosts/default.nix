@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}:
+{ inputs, ... }:
 {
   flake.nixosConfigurations =
     let
@@ -15,10 +12,7 @@
     {
       hp-laptop = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        imports = common ++ [
-          ./hp-laptop
-          ../theme
-        ];
+        imports = common ++ [ ./hp-laptop ];
         specialArgs = { inherit inputs; };
       };
     };
