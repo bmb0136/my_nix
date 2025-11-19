@@ -1,4 +1,7 @@
-{ inputs, ... }:
+{
+  inputs,
+  ...
+}:
 {
   flake.nixosConfigurations =
     let
@@ -14,7 +17,9 @@
         system = "x86_64-linux";
         imports = common ++ [
           ./hp-laptop
+          ../theme
         ];
+        specialArgs = { inherit inputs; };
       };
     };
 }

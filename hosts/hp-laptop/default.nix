@@ -14,6 +14,8 @@
 
   time.hardwareClockInLocalTime = true;
 
+  virtualisation.docker.enable = true;
+
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xinput}/bin/xinput disable 10
   '';

@@ -17,5 +17,8 @@
       home.homeDirectory = "/home/brandon";
       home.stateVersion = "25.05";
       programs.home-manager.enable = true;
+
+      programs.git.userName = "Brandon Buckley";
+      programs.git.userEmail = "brandonmb0136@gmail.com";
     };
 }
