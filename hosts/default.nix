@@ -10,6 +10,8 @@
         inputs.home-manager.nixosModules.home-manager
         {
           home-manager = {
+            backupFileExtension = "bak";
+            overwriteBackup = true;
             useGlobalPkgs = true;
             useUserPackages = true;
           };
