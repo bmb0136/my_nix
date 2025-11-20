@@ -4,7 +4,10 @@
   ...
 }:
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../bundles/laptop.nix
+  ];
 
   networking.hostName = "hp-laptop";
   services.automatic-timezoned.enable = true;

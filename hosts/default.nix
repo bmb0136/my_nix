@@ -10,6 +10,12 @@
             useUserPackages = true;
           };
         }
+        ({pkgs, ...}: {
+          environment.systemPackages = with pkgs; [
+            git
+            tmux
+          ];
+        })
       ];
     in
     {
