@@ -67,6 +67,10 @@
           "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
           "services/systemsettings.desktop"._launch = "Meta+I";
         };
+
+        configFile = {
+          kwinrc.Effect-overview.BorderActivate = 9;
+        };
       };
     }
   ];
