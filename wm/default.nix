@@ -33,8 +33,37 @@
           recordRegion = "Meta+Shift+R";
         };
 
+        panels = [
+          # Taskbar
+          {
+            location = "bottom";
+            height = 48;
+            lengthMode = "fill";
+            alignment = "left";
+            hiding = "none";
+            floating = false;
+            screen = "all";
+            widgets = [
+              "org.kde.plasma.kickoff"
+              {
+                iconTasks = {
+                  launchers = [
+                    "applications:org.kde.dolphin.desktop"
+                    "applications:firefox.desktop"
+                    "applications:org.kde.konsole.desktop"
+                  ];
+                };
+              }
+              "org.kde.plasma.marginsseparator"
+              "org.kde.plasma.systemtray"
+              "org.kde.plasma.digitalclock"
+              "org.kde.plasma.showdesktop"
+            ];
+          }
+        ];
+
         shortcuts = {
-          "services/org.kde.console.desktop"._launch = "Meta+Return";
+          "services/org.kde.konsole.desktop"._launch = "Meta+Return";
           "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
           "services/systemsettings.desktop"._launch = "Meta+I";
         };
