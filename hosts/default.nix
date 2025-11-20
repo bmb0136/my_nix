@@ -1,8 +1,14 @@
-{ inputs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  ...
+}:
 {
   flake.nixosConfigurations =
     let
       common = [
+        # Home manager
         inputs.home-manager.nixosModules.home-manager
         {
           home-manager = {
@@ -10,12 +16,32 @@
             useUserPackages = true;
           };
         }
-        ({pkgs, ...}: {
-          environment.systemPackages = with pkgs; [
-            git
-            tmux
-          ];
-        })
+        # Basic tools
+        (
+          { pkgs, ... }:
+          {
+            environment.systemPackages = with pkgs; [
+              git
+              tmux
+            ];
+          }
+        )
+        # Common nix settings
+        {
+          nix = {
+            registry = lib.mapAttrs (_: v: { flake = v; }) (
+              lib.filterAttrs (_: v: lib.isType "flake" v) inputs
+            );
+            nixPath = config.nix.registry;
+            settings = {
+              auto-optimize-store = true;
+              experimental-features = [
+                "nix-command"
+                "flakes"
+              ];
+            };
+          };
+        }
       ];
     in
     {
