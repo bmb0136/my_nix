@@ -44,7 +44,11 @@
             floating = false;
             screen = "all";
             widgets = [
-              "org.kde.plasma.kickoff"
+              {
+                kickoff = {
+                  icon = "nix-snowflake-white";
+                };
+              }
               {
                 iconTasks = {
                   launchers = [
