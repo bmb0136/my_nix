@@ -18,6 +18,11 @@
       url = "github:nix-community/plasma-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    my_nvim = {
+      url = "github:bmb0136/my_nvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
   };
 
   outputs =

@@ -2,5 +2,6 @@
 {
   imports = [
     ../browser.nix
+    ./.
   ];
 }
