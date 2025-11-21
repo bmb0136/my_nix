@@ -70,6 +70,7 @@
 
         configFile = {
           kwinrc.Effect-overview.BorderActivate = 9;
+          ksmserverrc.General.loginMode = "emptySession";
         };
       };
     }

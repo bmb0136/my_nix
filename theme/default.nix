@@ -2,6 +2,7 @@
   inputs,
   pkgs,
   lib,
+  config,
   ...
 }:
 {
@@ -22,6 +23,15 @@
       {
         programs.alacritty.settings.font.size = lib.mkForce 10;
       }
+    ];
+    services.displayManager.sddm = lib.mkIf config.services.displayManager.sddm.enable {
+      theme = "breeze";
+    };
+    environment.systemPackages = lib.mkIf config.services.displayManager.sddm.enable [
+      (pkgs.writeTextDir "share/sddm/themes/${config.services.displayManager.sddm.theme}/theme.conf.user" ''
+        [General]
+        background=${pkgs.runCommand "background-image" { } "cp ${./nixos.png} $out"}
+      '')
     ];
   };
 }
