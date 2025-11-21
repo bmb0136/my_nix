@@ -5,46 +5,36 @@
 {
   flake.nixosConfigurations =
     let
-      common = [
-        # Home manager
-        inputs.home-manager.nixosModules.home-manager
+      mkHost =
         {
-          home-manager = {
-            backupFileExtension = "bak";
-            overwriteBackup = true;
-            useGlobalPkgs = true;
-            useUserPackages = true;
-          };
-        }
-        # Basic tools
-        (
-          { pkgs, ... }:
-          {
-            environment.systemPackages = with pkgs; [
-              git
-              tmux
-            ];
-          }
-        )
-        # Common nix settings
-        {
-          nix = {
-            settings = {
-              auto-optimise-store = true;
-              experimental-features = [
-                "nix-command"
-                "flakes"
-              ];
-            };
-          };
-        }
-      ];
+          system,
+          main,
+          bundle,
+          users,
+        }:
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = (map (x: ../users/${x}) users) ++ [
+            ./bundles/${bundle}
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bak";
+                overwriteBackup = true;
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+          ];
+        };
     in
     {
-      hp-laptop = inputs.nixpkgs.lib.nixosSystem {
+      hp-laptop = mkHost {
         system = "x86_64-linux";
-        modules = common ++ [ ./hp-laptop ];
-        specialArgs = { inherit inputs; };
+        main = ./hp-laptop;
+        bundle = "laptop";
+        users = [ "brandon" ];
       };
     };
 }

@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   ...
 }:
 {
@@ -10,24 +9,10 @@
   ];
 
   networking.hostName = "hp-laptop";
-  services.automatic-timezoned.enable = true;
-
-  environment.systemPackages = with pkgs; [ brightnessctl ];
-
-  services.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true;
-    mouse.accelProfile = "flat";
-    touchpad.accelProfile = "flat";
-  };
 
   time.hardwareClockInLocalTime = true;
 
   virtualisation.docker.enable = true;
-
-  services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xinput}/bin/xinput disable 10
-  '';
 
   hardware = {
     bluetooth.enable = true;
@@ -43,8 +28,6 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.networkmanager.enable = true;
 
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -64,14 +47,6 @@
     xkb.layout = "us";
     xkb.variant = "";
   };
-
-  programs.ssh.startAgent = true;
-
-  nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   system.stateVersion = "25.05";
 }
