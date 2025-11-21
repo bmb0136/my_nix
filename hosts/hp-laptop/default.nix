@@ -1,4 +1,6 @@
 {
+  config,
+  lib,
   pkgs,
   ...
 }:
@@ -25,6 +27,21 @@
       ];
     };
   };
+
+  home-manager.sharedModules = [
+    (lib.mkIf config.services.desktopManager.plasma6.enable {
+      programs.plasma.input.touchpads = [
+        {
+          enable = true;
+          disableWhileTyping = true;
+          name = "ELAN0712:00 04F3:30FD Touchpad";
+          naturalScroll = true;
+          vendorId = "04f3";
+          productId = "30fd";
+        }
+      ];
+    })
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

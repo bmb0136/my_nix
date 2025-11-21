@@ -14,17 +14,19 @@
         enable = true;
         overrideConfig = true;
 
-        input.mice = [
-          # Mouse for hp-laptop (the blue one)
-          {
-            enable = true;
-            acceleration = -0.3;
-            accelerationProfile = "none";
-            name = "Logitech M510";
-            vendorId = "046d";
-            productId = "c52b";
-          }
-        ];
+        input = {
+          mice = [
+            # Mouse for hp-laptop (the blue one)
+            {
+              enable = true;
+              acceleration = -0.3;
+              accelerationProfile = "none";
+              name = "Logitech M510";
+              vendorId = "046d";
+              productId = "c52b";
+            }
+          ];
+        };
 
         krunner.shortcuts.launch = "Meta+R";
         spectacle.shortcuts = {

@@ -1,4 +1,4 @@
-{ inputs, pkgs, ...}:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ./tmux.nix
@@ -7,7 +7,7 @@
 
   environment.systemPackages = [
     inputs.my_nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
-    
+
     pkgs.git
     pkgs.htop
   ];
