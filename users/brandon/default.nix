@@ -18,7 +18,7 @@
       home.stateVersion = "25.05";
       programs.home-manager.enable = true;
 
-      programs.git.userName = "Brandon Buckley";
-      programs.git.userEmail = "brandonmb0136@gmail.com";
+      programs.git.settings.user.name = "Brandon Buckley";
+      programs.git.settings.user.email = "brandonmb0136@gmail.com";
     };
 }
