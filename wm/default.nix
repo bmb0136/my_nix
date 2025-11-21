@@ -77,7 +77,13 @@
         configFile = {
           kwinrc.Effect-overview.BorderActivate = 9;
           ksmserverrc.General.loginMode = "emptySession";
+          spectaclerc.General.autoSaveImage = true;
           spectaclerc.General.clipboardGroup = "PostScreenshotCopyImage";
+          spectaclerc.General.launchAction = "DoNotTakeScreenshot";
+          spectaclerc.General.useReleaseToCapture = true;
+          spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
+          spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
+
         };
       };
     }
