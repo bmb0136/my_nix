@@ -1,8 +1,8 @@
 { inputs, pkgs, ...}:
 {
   imports = [
-    ../tmux.nix
-    ../nix.nix
+    ./tmux.nix
+    ./nix.nix
   ];
 
   environment.systemPackages = [

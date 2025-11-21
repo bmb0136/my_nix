@@ -16,7 +16,8 @@
           inherit system;
           specialArgs = { inherit inputs; };
           modules = (map (x: ../users/${x}) users) ++ [
-            ./bundles/${bundle}
+            main
+            ./bundles/${bundle}.nix
             inputs.home-manager.nixosModules.home-manager
             {
               home-manager = {
