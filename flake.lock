@@ -241,11 +241,11 @@
         "nvf": "nvf"
       },
       "locked": {
-        "lastModified": 1763686139,
-        "narHash": "sha256-wWQSzBdsAq7Gq3GsABl23wXz7u22rf+wObAqPA2gv6U=",
+        "lastModified": 1765404976,
+        "narHash": "sha256-giYAW8eNbLP06iYHsWf30uTzGPfYijWL1KLTAwRXEQc=",
         "owner": "bmb0136",
         "repo": "my_nvim",
-        "rev": "7ddaafaf2b39677a1ef83a15a29cd91c793b8e9d",
+        "rev": "7288678cf0f5c7a3698ed4e80194bc8367e93e91",
         "type": "github"
       },
       "original": {
