@@ -2,9 +2,20 @@
 {
   home-manager.sharedModules = [
     {
+      home.sessionVariables = {
+        NIXOS_OZONE_WL = "1";
+      };
       programs.chromium = {
         enable = true;
-        package = pkgs.ungoogled-chromium;
+        package = pkgs.ungoogled-chromium.override {
+          commandLineArgs = [
+            "--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
+            "--enable-features=VaapiIgnoreDriverChecks,VaapiVideoDecoder,PlatformHEVCDecoderSupport"
+            "--enable-features=UseMultiPlaneFormatForHardwareVideo"
+            "--ignore-gpu-blocklist"
+            "--enable-zero-copy"
+          ];
+        };
         extensions =
           let
             createChromiumExtensionFor =
