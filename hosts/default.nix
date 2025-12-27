@@ -37,5 +37,11 @@
         bundle = "laptop";
         users = [ "brandon" ];
       };
+      workstation = mkHost {
+        system = "x86_64-linux";
+        main = ./workstation;
+        bundle = "desktop";
+        users = [ "brandon" ];
+      };
     };
 }
