@@ -72,6 +72,13 @@
           "services/org.kde.konsole.desktop"._launch = "Meta+Return";
           "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
           "services/systemsettings.desktop"._launch = "Meta+I";
+
+          # Global keybinds for Chrome to avoid popup on every rebuild
+          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-addSite" = [ ];
+          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-switchEngine" = [ ];
+          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-toggle" = [ ];
+          "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-picker-mode" = [ ];
+          "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-zapper-mode" = [ ];
         };
 
         configFile = {
@@ -83,13 +90,6 @@
           spectaclerc.General.useReleaseToCapture = true;
           spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
           spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
-
-          # Global keybinds for Chrome to avoid popup on every rebuild
-          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-addSite" = [ ];
-          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-switchEngine" = [ ];
-          "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-toggle" = [ ];
-          "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-picker-mode" = [ ];
-          "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-zapper-mode" = [ ];
         };
       };
     }
