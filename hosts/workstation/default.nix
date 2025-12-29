@@ -3,8 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  config,
-  lib,
+  inputs,
   pkgs,
   ...
 }:
@@ -38,6 +37,10 @@
     enable = true;
     joinNetworks = ["0cccb752f7bad052"];
   };
+
+  environment.systemPackages = [
+    (pkgs.nvtopPackages.nvidia.override { intel = true; })
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
