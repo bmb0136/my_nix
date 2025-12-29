@@ -35,7 +35,7 @@
 
   services.zerotierone = {
     enable = true;
-    joinNetworks = ["0cccb752f7bad052"];
+    joinNetworks = [ "0cccb752f7bad052" ];
   };
 
   environment.systemPackages = [
