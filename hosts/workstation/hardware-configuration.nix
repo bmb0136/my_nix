@@ -42,7 +42,6 @@
     { device = "/dev/disk/by-uuid/e3652481-eb51-4aa4-a1e4-ea753e2b3db1"; }
   ];
 
-  nixpkgs.config.cudaSupport = true;
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
