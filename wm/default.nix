@@ -90,6 +90,10 @@
           spectaclerc.General.useReleaseToCapture = true;
           spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
           spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
+
+          # Fix alt+tab lag
+          kwinrc.TabBox.HighlightWindows = false;
+          kwinrc.TabBox.LayoutName = "compact";
         };
       };
     }
