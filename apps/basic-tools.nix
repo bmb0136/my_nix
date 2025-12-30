@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ config, inputs, pkgs, lib, ... }:
 {
   environment.shellAliases = {
     l = "ls -lah";
@@ -12,6 +12,9 @@
     pkgs.htop
     pkgs.wget
     pkgs.curl
+    pkgs.git
+
+    inputs.my_nvim.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     (pkgs.writeShellApplication rec {
       name = "mkvim";
@@ -22,7 +25,10 @@
         fi
         lang=$1
         shift
-        nix run "${inputs.my_nvim}#$lang" -- "$@"
+        my_nvim="${inputs.my_nvim}"
+        system="${pkgs.system}"
+        result=$(nix-build --expr "(builtins.getFlake \"$my_nvim\").packages.\"$system\".default.override { enable-$lang=true; }" --no-out-link)
+        "$result/bin/nvim" "$@"
       '';
     })
   ];
