@@ -7,26 +7,7 @@
 }:
 let
   my_nvim = inputs.my_nvim.packages.${pkgs.stdenv.hostPlatform.system};
-  enableOllama = config.services.ollama.enable;
-  modules =
-    if enableOllama then
-      [
-        {
-          config.vim.assistant.avante-nvim = {
-            enable = true;
-            setupOpts = {
-              provider = "ollama";
-              providers.ollama = {
-                model = "gpt-oss:20b";
-                endpoint = "http://${config.services.ollama.host}:${builtins.toString config.services.ollama.port}";
-                timeout = 30000;
-              };
-            };
-          };
-        }
-      ]
-    else
-      [ ];
+  modules = [];
 in
 {
   options.bmb0136.nvim.add-lang-nvims = lib.mkEnableOption "Language-specific nvim packages";
