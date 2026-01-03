@@ -39,7 +39,7 @@
   };
 
   environment.systemPackages = [
-    pkgs.nvtopPackages.nvidia.override
+    pkgs.nvtopPackages.nvidia
   ];
 
   services.ollama = {
