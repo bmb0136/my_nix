@@ -45,7 +45,6 @@
   services.ollama = {
     enable = true;
     package = pkgs.ollama-cuda;
-    acceleration = "cuda";
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,

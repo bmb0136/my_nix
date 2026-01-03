@@ -8,39 +8,45 @@
       mkHost =
         {
           system,
-          main,
-          bundle,
+          modules,
           users,
         }:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
-          modules = (map (x: ../users/${x}) users) ++ [
-            main
-            ./bundles/${bundle}.nix
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                backupFileExtension = "bak";
-                overwriteBackup = true;
-                useGlobalPkgs = true;
-                useUserPackages = true;
-              };
-            }
-          ];
+          modules =
+            modules
+            ++ (map (x: ../users/${x}) users)
+            ++ [
+              inputs.home-manager.nixosModules.home-manager
+              {
+                home-manager = {
+                  backupFileExtension = "bak";
+                  overwriteBackup = true;
+                  useGlobalPkgs = true;
+                  useUserPackages = true;
+                };
+              }
+            ];
         };
     in
     {
       hp-laptop = mkHost {
         system = "x86_64-linux";
-        main = ./hp-laptop;
-        bundle = "laptop";
+        modules = [
+          ./hp-laptop
+          ./bundles/laptop.nix
+          ../apps/bundles/coding.nix
+        ];
         users = [ "brandon" ];
       };
       workstation = mkHost {
         system = "x86_64-linux";
-        main = ./workstation;
-        bundle = "desktop";
+        modules = [
+          ./workstation
+          ./bundles/desktop.nix
+          ../apps/bundles/coding.nix
+        ];
         users = [ "brandon" ];
       };
     };

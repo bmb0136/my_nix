@@ -7,7 +7,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../bundles/laptop.nix
   ];
 
   networking.hostName = "hp-laptop";
