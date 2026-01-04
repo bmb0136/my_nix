@@ -13,7 +13,7 @@ in
   options.bmb0136.nvim.add-lang-nvims = lib.mkEnableOption "Language-specific nvim packages";
 
   config.environment.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = lib.mkForce "nvim";
   };
 
   config.environment.systemPackages = [
