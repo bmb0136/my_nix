@@ -46,7 +46,7 @@
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt
-      
+
       libva-vdpau-driver
       libvdpau-va-gl
 

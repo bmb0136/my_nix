@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -10,6 +11,12 @@
   home-manager.sharedModules = [
     inputs.plasma-manager.homeModules.plasma-manager
     {
+      home.packages = [
+        (pkgs.writeShellScriptBin "plasma-rc2nix" ''
+          "${inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/rc2nix" "$@"
+        '')
+      ];
+
       programs.plasma = {
         enable = true;
         overrideConfig = true;
@@ -34,6 +41,13 @@
           captureRectangularRegion = "Meta+Shift+S";
           recordRegion = "Meta+Shift+R";
         };
+
+        powerdevil = lib.genAttrs [ "AC" "battery" "lowBattery" ] (_: {
+          # Disable auto sleeping (breaks nvidia drivers)
+          autoSuspend.action = "nothing";
+          # Windows parity
+          powerButtonAction = "shutDown";
+        });
 
         panels = [
           # Taskbar

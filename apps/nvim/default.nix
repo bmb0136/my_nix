@@ -7,7 +7,7 @@
 }:
 let
   my_nvim = inputs.my_nvim.packages.${pkgs.stdenv.hostPlatform.system};
-  modules = [];
+  modules = [ ];
 in
 {
   options.bmb0136.nvim.add-lang-nvims = lib.mkEnableOption "Language-specific nvim packages";
