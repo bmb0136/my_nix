@@ -12,6 +12,10 @@ in
 {
   options.bmb0136.nvim.add-lang-nvims = lib.mkEnableOption "Language-specific nvim packages";
 
+  config.environment.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   config.environment.systemPackages = [
     (my_nvim.default.override { inherit modules; })
   ]
