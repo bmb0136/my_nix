@@ -99,7 +99,7 @@
                   launchers = [
                     "applications:org.kde.dolphin.desktop"
                     "applications:chromium-browser.desktop"
-                    "applications:org.kde.konsole.desktop"
+                    "applications:Alacritty.desktop"
                   ];
                 };
               }
@@ -112,7 +112,7 @@
         ];
 
         shortcuts = {
-          "services/org.kde.konsole.desktop"._launch = "Meta+Return";
+          "services/Alacritty.desktop"._launch = "Meta+Return";
           "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
           "services/systemsettings.desktop"._launch = "Meta+I";
 
