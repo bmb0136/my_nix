@@ -1,5 +1,6 @@
 {
   inputs,
+  config,
   pkgs,
   lib,
   ...
@@ -20,6 +21,34 @@
       programs.plasma = {
         enable = true;
         overrideConfig = true;
+
+        # Stylix compat
+        fonts = {
+          general = {
+            family = config.stylix.fonts.sansSerif.name;
+            pointSize = 10;
+          };
+          small = {
+            family = config.stylix.fonts.sansSerif.name;
+            pointSize = 8;
+          };
+          toolbar = {
+            family = config.stylix.fonts.sansSerif.name;
+            pointSize = 10;
+          };
+          menu = {
+            family = config.stylix.fonts.sansSerif.name;
+            pointSize = 10;
+          };
+          windowTitle = {
+            family = config.stylix.fonts.sansSerif.name;
+            pointSize = 10;
+          };
+          fixedWidth = {
+            family = config.stylix.fonts.monospace.name;
+            pointSize = 10;
+          };
+        };
 
         input = {
           mice = [
