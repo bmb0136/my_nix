@@ -17,6 +17,16 @@
           package = pkgs.nerd-fonts.jetbrains-mono;
           name = "JetBrainsMono Nerd Font";
         };
+        emoji = {
+          name = "Twitter Color Emoji";
+          package = pkgs.symlinkJoin {
+            name = "twemoji";
+            paths = with pkgs; [
+              twemoji-color-font
+              twitter-color-emoji
+            ];
+          };
+        };
       };
     };
     home-manager.sharedModules = [
