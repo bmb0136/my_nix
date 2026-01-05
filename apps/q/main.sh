@@ -15,10 +15,15 @@ function join_by {
 }
 
 if [[ $# -eq 0 ]]; then
-  log_error "Usage: q <command> [args]"
-  exit 1
+  ALL_COMMANDS=(
+    st
+    rb
+    ak
+  )
+  command=$(join_by $'\n' "${ALL_COMMANDS[@]}" | search)
 else
   command=$1
+  shift
 fi
 
 if [[ -z $command ]]; then
