@@ -15,7 +15,7 @@ function join_by {
 }
 
 if [[ $# -eq 0 ]]; then
-  COMMANDS=(rb ak tmp)
+  COMMANDS=(rb ak tmp mkcd st)
   command=$(join_by $'\n' "${COMMANDS[@]}" | search)
 else
   command=$1
@@ -26,6 +26,10 @@ if [[ -z $command ]]; then
 fi
 
 case $command in
+  # Git status
+  st)
+    git status
+    ;;
   # Make and enter temp folder
   tmp)
     cd "$(mktemp -d)" || exit 1

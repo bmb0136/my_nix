@@ -14,9 +14,10 @@
         config.home.packages = lib.optionals config.bmb0136.q.enable [
           (pkgs.writeShellApplication {
             name = "q";
-            runtimeInputs = [
-              pkgs.fzf
-              pkgs.openssh
+            runtimeInputs = with pkgs; [
+              fzf
+              openssh
+              git
             ];
             text = builtins.readFile ./main.sh; 
           })
