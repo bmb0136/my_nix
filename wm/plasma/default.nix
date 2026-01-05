@@ -58,6 +58,15 @@
               vendorId = "046d";
               productId = "c52b";
             }
+            # Mouse for workstation (the gray one)
+            {
+              enable = true;
+              acceleration = 0.4;
+              accelerationProfile = "none";
+              name = "Logitech M720 Triathlon";
+              vendorId = "046d";
+              productId = "405e";
+            }
           ];
         };
 
