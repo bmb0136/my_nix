@@ -22,6 +22,7 @@
     };
 
     fonts = {
+      enableDefaultPackages = true;
       fontconfig = {
         enable = true;
         #useEmbeddedBitmaps = true;
