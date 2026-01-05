@@ -18,6 +18,7 @@
             modules
             ++ (map (x: ../users/${x}) users)
             ++ [
+              inputs.sops-nix.nixosModules.sops
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {

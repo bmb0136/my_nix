@@ -1,0 +1,9 @@
+keys:
+  - &workstation age18jreuyxelxv84kz7xwpkfnvx27hh0u5jchqt26pppa3p3kxz0enq95z72x
+  - &manta age1tvd2d6nnmd98reacwmgp0vm2duc6kumwt5uca4z37echnptdvd6qv3pyyp
+creation_rules:
+  - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+    key_groups:
+      - age:
+          - *workstation
+          - *manta

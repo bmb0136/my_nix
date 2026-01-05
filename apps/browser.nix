@@ -43,6 +43,12 @@
               sha256 = "sha256:0hijj2gd34qqspxx9y7kjdya5q9kdjl4lajc6mgh7jysziw0c838";
               version = "4.9.118";
             }
+            # Bitwarden (actually vaultwarden hosted on manta)
+            {
+              id = "nngceckbapebfimnlniiiahkandclblb";
+              sha256 = "sha256:1b9hsqadbv724ccbla74fj4h9mbw4c5h88fxyvw35h1m2p7r7s98";
+              version = "2025.12.0";
+            }
           ];
       };
     }
