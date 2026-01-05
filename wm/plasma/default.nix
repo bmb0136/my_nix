@@ -13,6 +13,8 @@
         (pkgs.writeShellScriptBin "plasma-rc2nix" ''
           "${inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/rc2nix" "$@"
         '')
+
+        pkgs.dmenu-wayland
       ];
 
       programs.plasma = {
@@ -70,7 +72,7 @@
           ];
         };
 
-        krunner.shortcuts.launch = "Meta+R";
+        krunner.shortcuts.launch = "";
         spectacle.shortcuts = {
           launch = "Meta+Shift+Print"; # Overriden from the default: Meta+R
           captureRectangularRegion = "Meta+Shift+S";
@@ -121,6 +123,7 @@
           "services/Alacritty.desktop"._launch = "Meta+Return";
           "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
           "services/systemsettings.desktop"._launch = "Meta+I";
+          "services/net.local.dmenu-wl_run.desktop"._launch = "Meta+R";
 
           # Global keybinds for Chrome to avoid popup on every rebuild
           "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-addSite" = [ ];
