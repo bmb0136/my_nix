@@ -17,6 +17,10 @@
         proxyPass = "http://${config.services.vaultwarden.config.ROCKET_ADDRESS}:${config.services.vaultwarden.config.ROCKET_PORT}";
         extraConfig = "client_max_body_size 512M;";
       };
+      ssl_certificate = ../../certs/bitwarden.pub;
+      ssl_certificate_key = config.sops.templates."bitwarden_private_key".path;
     };
   };
+  sops.secrets."bitwarden/private_key" = {};
+  sops.templates."bitwarden_private_key".content = config.sops.placeholder."bitwarden_private_key";
 }

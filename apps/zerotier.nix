@@ -10,4 +10,7 @@
 
     "192.168.194.100 nuc.zt"
   ];
+  security.pki.certificateFiles = [
+    ../certs/bitwarden.pub
+  ];
 }
