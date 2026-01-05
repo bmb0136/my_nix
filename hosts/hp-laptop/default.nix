@@ -15,6 +15,11 @@
 
   virtualisation.docker.enable = true;
 
+  security.pki.certificateFiles = [
+    ../../certs/auburn.cer
+    ../../certs/usertrust.pem
+  ];
+
   hardware = {
     bluetooth.enable = true;
     graphics = {
