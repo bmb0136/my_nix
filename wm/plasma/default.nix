@@ -131,6 +131,11 @@
           "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-toggle" = [ ];
           "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-picker-mode" = [ ];
           "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-zapper-mode" = [ ];
+          "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_card = [ ];
+          "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_identity = [ ];
+          "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_login = [ ];
+          "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-generate_password = [ ];
+          "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-lock_vault = [ ];
         };
 
         configFile = {
