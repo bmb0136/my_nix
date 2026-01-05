@@ -143,6 +143,8 @@
           spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
           spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
 
+          kwinrc.Windows.Placement = "Maximizing";
+
           # Fix alt+tab lag
           kwinrc.TabBox.HighlightWindows = false;
           kwinrc.TabBox.LayoutName = "compact";
