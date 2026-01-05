@@ -15,7 +15,7 @@ function join_by {
 }
 
 if [[ $# -eq 0 ]]; then
-  COMMANDS=(rb ak)
+  COMMANDS=(rb ak tmp)
   command=$(join_by $'\n' "${COMMANDS[@]}" | search)
 else
   command=$1
@@ -26,6 +26,19 @@ if [[ -z $command ]]; then
 fi
 
 case $command in
+  # Make and enter temp folder
+  tmp)
+    cd "$(mktemp -d)" || exit 1
+    ;;
+  # Make and enter folder
+  mkcd)
+    if [[ $# -ne 1 ]]; then
+      log_error "Usage: q mkcd <folder>"
+      exit 1
+    fi
+    mkdir -p "$1"
+    cd "$1" || exit 1
+    ;;
   # Rebuild
   rb)
     sudo nixos-rebuild switch --flake .
