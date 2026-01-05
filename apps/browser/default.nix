@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   home-manager.sharedModules = [
     {
@@ -8,48 +8,26 @@
       programs.chromium = {
         enable = true;
         package = pkgs.ungoogled-chromium;
-        extensions =
-          let
-            createChromiumExtensionFor =
-              browserVersion:
-              {
-                id,
-                sha256,
-                version,
-              }:
-              {
-                inherit id;
-                crxPath = builtins.fetchurl {
-                  url = "https://clients2.google.com/service/update2/crx?response=redirect&acceptformat=crx2,crx3&prodversion=${browserVersion}&x=id%3D${id}%26installsource%3Dondemand%26uc";
-                  name = "${id}.crx";
-                  inherit sha256;
-                };
-                inherit version;
-              };
-            createChromiumExtension = createChromiumExtensionFor (
-              lib.versions.major pkgs.ungoogled-chromium.version
-            );
-          in
-          map createChromiumExtension [
-            # UBO
-            {
-              id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
-              sha256 = "sha256:0swqw3siwgpvqvqb1hrmibs2snpl10sdhy7qdc8xja87qyjjmwqz";
-              version = "2025.1217.1755";
-            }
-            # Dark Reader
-            {
-              id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";
-              sha256 = "sha256:0hijj2gd34qqspxx9y7kjdya5q9kdjl4lajc6mgh7jysziw0c838";
-              version = "4.9.118";
-            }
-            # Bitwarden (actually vaultwarden hosted on manta)
-            {
-              id = "nngceckbapebfimnlniiiahkandclblb";
-              sha256 = "sha256:1b9hsqadbv724ccbla74fj4h9mbw4c5h88fxyvw35h1m2p7r7s98";
-              version = "2025.12.0";
-            }
-          ];
+        extensions = [
+          # UBO
+          {
+            id = "ddkjiahejlhfcafbddmgiahcphecmpfh";
+            crxPath = ./ublock.crx;
+            version = "2025.1217.1755";
+          }
+          # Dark Reader
+          {
+            id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";
+            crxPath = ./dark_reader.crx;
+            version = "4.9.118";
+          }
+          # Bitwarden (actually vaultwarden hosted on manta)
+          {
+            id = "nngceckbapebfimnlniiiahkandclblb";
+            crxPath = ./bitwarden.crx;
+            version = "2025.12.0";
+          }
+        ];
       };
     }
   ];
