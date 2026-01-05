@@ -5,5 +5,6 @@
     ./nix.nix
     ./basic-tools.nix
     ./nvim
+    ./q
   ];
 }

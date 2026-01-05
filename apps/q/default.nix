@@ -1,0 +1,27 @@
+{
+
+  home-manager.sharedModules = [
+    (
+      {
+        config,
+        pkgs,
+        lib,
+        ...
+      }:
+      {
+        options.bmb0136.q.enable = lib.mkEnableOption "Enable the 'q' tool for the current user";
+
+        config.home.packages = lib.optionals config.bmb0136.q.enable [
+          (pkgs.writeShellApplication {
+            name = "q";
+            runtimeInputs = [
+              pkgs.fzf
+              pkgs.openssh
+            ];
+            text = builtins.readFile ./main.sh; 
+          })
+        ];
+      }
+    )
+  ];
+}

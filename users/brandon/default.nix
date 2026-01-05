@@ -20,5 +20,7 @@
 
       programs.git.settings.user.name = "Brandon Buckley";
       programs.git.settings.user.email = "brandonmb0136@gmail.com";
+
+      bmb0136.q.enable = true;
     };
 }
