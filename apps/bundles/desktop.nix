@@ -1,7 +1,7 @@
 { ... }:
 {
   imports = [
-    ../browser.nix
+    ../browser
     ../alacritty.nix
     ../.
   ];
