@@ -15,8 +15,8 @@ function join_by {
 }
 
 if [[ $# -eq 0 ]]; then
-  COMMANDS=(rb ak tmp mkcd st)
-  command=$(join_by $'\n' "${COMMANDS[@]}" | search)
+  log_error "Usage: q <command> [args]"
+  exit 1
 else
   command=$1
 fi
@@ -29,19 +29,6 @@ case $command in
   # Git status
   st)
     git status
-    ;;
-  # Make and enter temp folder
-  tmp)
-    cd "$(mktemp -d)" || exit 1
-    ;;
-  # Make and enter folder
-  mkcd)
-    if [[ $# -ne 1 ]]; then
-      log_error "Usage: q mkcd <folder>"
-      exit 1
-    fi
-    mkdir -p "$1"
-    cd "$1" || exit 1
     ;;
   # Rebuild
   rb)
