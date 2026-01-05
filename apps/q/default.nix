@@ -19,7 +19,7 @@
               openssh
               git
             ];
-            text = builtins.readFile ./main.sh; 
+            text = builtins.readFile ./main.sh;
           })
         ];
       }

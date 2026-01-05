@@ -37,6 +37,7 @@
           ./hp-laptop
           ./bundles/laptop.nix
           ../apps/bundles/coding.nix
+          ../apps/zerotier.nix
         ];
         users = [ "brandon" ];
       };
@@ -46,6 +47,7 @@
           ./workstation
           ./bundles/desktop.nix
           ../apps/bundles/coding.nix
+          ../apps/zerotier.nix
         ];
         users = [ "brandon" ];
       };

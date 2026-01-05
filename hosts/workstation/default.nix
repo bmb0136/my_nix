@@ -20,23 +20,12 @@
 
   networking.hostName = "workstation"; # Define your hostname.
 
-  # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
-  services.automatic-timezoned.enable = true;
-
-  # Set your time zone.
   time.hardwareClockInLocalTime = true;
 
   virtualisation.docker = {
-    enable = true;
     daemon.settings.features.cdi = true;
   };
   hardware.nvidia-container-toolkit.enable = true;
-
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = [ "0cccb752f7bad052" ];
-  };
 
   environment.systemPackages = [
     pkgs.nvtopPackages.nvidia

@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
@@ -7,4 +8,9 @@
       locations."/".return = "404";
     };
   };
+
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
