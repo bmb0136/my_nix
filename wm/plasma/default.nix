@@ -146,6 +146,10 @@
           # Fix alt+tab lag
           kwinrc.TabBox.HighlightWindows = false;
           kwinrc.TabBox.LayoutName = "compact";
+
+          # Default terminal
+          kdeglobals.General.TerminalApplication = "alacritty";
+          kdeglobals.General.TerminalService = "Alacritty.desktop";
         };
       };
     }
