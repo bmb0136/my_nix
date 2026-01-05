@@ -49,5 +49,13 @@
         ];
         users = [ "brandon" ];
       };
+      manta = mkHost {
+        system = "x86_64-linux";
+        modules = [
+          ./manta
+          ./bundles/server.nix
+        ];
+        users = [ "jelly" ];
+      };
     };
 }
