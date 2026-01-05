@@ -17,5 +17,6 @@
       home.homeDirectory = "/home/jelly";
       home.stateVersion = "24.05";
       programs.home-manager.enable = true;
+      bmb0136.q.enable = true;
     };
 }
