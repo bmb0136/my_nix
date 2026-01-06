@@ -40,6 +40,9 @@
   fileSystems."/mnt/hdd" = {
     device = "/dev/disk/by-uuid/f8aff5b7-51e4-4b2a-a1e9-262ae33dc5ff";
     fsType = "ext4";
+    options = [
+      "defaults" "nofail" "user"
+    ];
   };
 
   swapDevices = [ { device = "/dev/disk/by-uuid/a83eee4c-48c2-4408-94d0-244fbab6c7d2"; } ];
