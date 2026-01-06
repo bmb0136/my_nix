@@ -19,6 +19,7 @@ if [[ $# -eq 0 ]]; then
     st
     rb
     ak
+    op
   )
   command=$(join_by $'\n' "${ALL_COMMANDS[@]}" | search)
 else
@@ -35,10 +36,12 @@ case $command in
   st)
     git status
     ;;
+
   # Rebuild
   rb)
     sudo nixos-rebuild switch --flake .
     ;;
+
   # Add ssh key
   ak)
     keys=()
@@ -49,7 +52,8 @@ case $command in
     done
 
     if [[ ${#keys[@]} -eq 0 ]]; then
-      exit 0
+      log_error "No SSH keys found in $HOME/.ssh/id_*"
+      exit 1
     fi
 
     key_name=$(join_by $'\n' "${keys[@]}" | search "$@")
@@ -59,6 +63,30 @@ case $command in
 
     ssh-add "$key_name"
     ;;
+  
+  # Open project (folder in ~/src)
+  op)
+    projects=()
+    keys=()
+    for dir in "$HOME"/src/*/; do
+      key="$(basename "$dir")"
+      keys+=("$key")
+      projects[key]="$dir"
+    done
+
+    if [[ ${#keys[@]} -eq 0 ]]; then
+      log_error "No projects found in ~/src"
+      exit 1
+    fi
+
+    name=$(join_by $'\n' "${keys[@]}" | search "$@")
+    if [[ -z "$name" ]]; then
+      exit 0
+    fi
+
+    tmux new-session -s "$name" -c "${projects[name]}"
+    ;;
+
   *)
     log_error "Unknown command '$command'"
     ;;
