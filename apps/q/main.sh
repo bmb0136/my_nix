@@ -66,12 +66,12 @@ case $command in
   
   # Open project (folder in ~/src)
   op)
-    projects=()
+    declare -A projects
     keys=()
     for dir in "$HOME"/src/*/; do
       key="$(basename "$dir")"
       keys+=("$key")
-      projects[key]="$dir"
+      projects["$key"]="$dir"
     done
 
     if [[ ${#keys[@]} -eq 0 ]]; then
@@ -84,7 +84,7 @@ case $command in
       exit 0
     fi
 
-    tmux new-session -s "$name" -c "${projects[name]}"
+    tmux new-session -s "$name" -c "${projects["$name"]}"
     ;;
 
   *)
