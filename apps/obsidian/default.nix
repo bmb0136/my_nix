@@ -24,6 +24,9 @@ in
           enable = true;
           defaultSettings = {
             app = import ./app.nix;
+            appearance = lib.mkForce {
+              baseFontSize = 20;
+            };
             corePlugins = import ./plugins/core.nix;
             communityPlugins = import ./plugins/community.nix { inherit pkgs; };
             hotkeys = import ./hotkeys.nix;
