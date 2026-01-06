@@ -1,0 +1,44 @@
+{ pkgs, ... }:
+[
+  {
+    enable = true;
+    pkg = pkgs.callPackage ./better-export-pdf.nix { };
+    settings = {
+      showTitle = true;
+      maxLevel = "6";
+      displayHeader = true;
+      displayFooter = true;
+      headerTemplate = ''<div style="width: 100vw;font-size:10px;text-align:center;"><span class="title"></span></div>'';
+      footerTemplate = ''<div style="width: 100vw;font-size:10px;text-align:center;"><span class="pageNumber"></span> / <span class="totalPages"></span></div>'';
+      printBackground = false;
+      generateTaggedPDF = false;
+      displayMetadata = false;
+      debug = false;
+      isTimestamp = false;
+      enabledCss = false;
+      prevConfig = {
+        pageSize = "A4";
+        marginType = "1";
+        showTitle = true;
+        open = true;
+        scale = 50;
+        landscape = false;
+        marginTop = "10";
+        marginBottom = "10";
+        marginLeft = "10";
+        marginRight = "10";
+        displayHeader = false;
+        displayFooter = false;
+        cssSnippet = "0";
+      };
+    };
+  }
+  {
+    enable = true;
+    pkg = pkgs.callPackage ./obsidian-git.nix { };
+  }
+  {
+    enable = true;
+    pkg = pkgs.callPackage ./tag-wrangler.nix { };
+  }
+]
