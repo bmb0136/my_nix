@@ -13,5 +13,6 @@
     pkgs.wget
     pkgs.curl
     pkgs.git
+    pkgs.fzf
   ];
 }
