@@ -32,6 +32,10 @@ in
             Type=Application
             Categories=Utility;Application;
           '')
+
+          (pkgs.writeShellScriptBin "log-out" ''
+            qdbus org.kde.LogoutPrompt /LogoutPrompt promptLogout
+          '')
         ];
 
         programs.plasma = {
