@@ -22,7 +22,16 @@ in
             "${inputs.plasma-manager.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/rc2nix" "$@"
           '')
 
-          pkgs.dmenu-wayland
+          (pkgs.writeTextDir "share/applications/dmenu.desktop" ''
+            [Desktop Entry]
+            Name=Dmenu
+            Comment=Open dmenu
+            Exec=${pkgs.dmenu-wayland}/bin/dmenu-wl_run
+            Icon=utilities-terminal
+            Terminal=false
+            Type=Application
+            Categories=Utility;Application;
+          '')
         ];
 
         programs.plasma = {
@@ -134,7 +143,7 @@ in
             "services/Alacritty.desktop"._launch = "Meta+Return";
             "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
             "services/systemsettings.desktop"._launch = "Meta+I";
-            "services/net.local.dmenu-wl_run.desktop"._launch = "Meta+R";
+            "services/dmenu.desktop"._launch = "Meta+R";
 
             # Global keybinds for Chrome to avoid popup on every rebuild
             "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-addSite" = [ ];
@@ -159,8 +168,6 @@ in
             spectaclerc.ImageSave.translatedScreenshotsFolder = "Screenshots";
             spectaclerc.VideoSave.translatedScreencastsFolder = "Screencasts";
 
-            kwinrc.Windows.Placement = "Maximizing";
-
             # Fix alt+tab lag
             kwinrc.TabBox.HighlightWindows = false;
             kwinrc.TabBox.LayoutName = "compact";
@@ -168,6 +175,9 @@ in
             # Default terminal
             kdeglobals.General.TerminalApplication = "alacritty";
             kdeglobals.General.TerminalService = "Alacritty.desktop";
+
+            # Disabled in favor of dmenu
+            krunnerrc.General.ActivateWhenTypingOnDesktop = false;
           };
         };
       }
