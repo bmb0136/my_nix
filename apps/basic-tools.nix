@@ -5,14 +5,17 @@
     ll = "ls -l";
     ls = "ls --color=tty";
     cls = "clear";
+    grep = "grep --color=auto";
   };
 
-  environment.systemPackages = [
-    pkgs.btop
-    pkgs.htop
-    pkgs.wget
-    pkgs.curl
-    pkgs.git
-    pkgs.fzf
+  environment.systemPackages = with pkgs; [
+    btop
+    htop
+    wget
+    curl
+    git
+    fzf
+    traceroute
+    file
   ];
 }
