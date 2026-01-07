@@ -3,7 +3,7 @@
   environment.systemPackages =
     let
       inherit (pkgs) jetbrains;
-      ide = jetbrains.idea;
+      ide = jetbrains.idea-oss;
       system = pkgs.stdenv.hostPlatform.system;
     in
     [
