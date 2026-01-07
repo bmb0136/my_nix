@@ -50,10 +50,7 @@
           ../apps/bundles/coding.nix
           ../apps/zerotier.nix
         ];
-        users = [
-          "brandon"
-          "gaming"
-        ];
+        users = [ "brandon" ];
       };
       manta = mkHost {
         system = "x86_64-linux";
