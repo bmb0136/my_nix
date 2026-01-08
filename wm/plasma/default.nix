@@ -192,6 +192,11 @@ in
 
             # Disabled in favor of dmenu
             krunnerrc.General.ActivateWhenTypingOnDesktop = false;
+
+            # Power settings
+            powerdevilrc."AC/Performance".PowerProfile = "performance";
+            powerdevilrc."Battery/Performance".PowerProfile = "balanced";
+            powerdevilrc."LoweBatteru/Performance".PowerProfile = "power-saver";
           };
         };
       }
