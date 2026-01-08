@@ -196,7 +196,7 @@ in
             # Power settings
             powerdevilrc."AC/Performance".PowerProfile = "performance";
             powerdevilrc."Battery/Performance".PowerProfile = "balanced";
-            powerdevilrc."LoweBatteru/Performance".PowerProfile = "power-saver";
+            powerdevilrc."LoweBattery/Performance".PowerProfile = "power-saver";
           };
         };
       }
