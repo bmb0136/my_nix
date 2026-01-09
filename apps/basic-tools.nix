@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./git.nix
+  ];
+
   environment.shellAliases = {
     l = "ls -lah";
     ll = "ls -l";
@@ -13,7 +17,6 @@
     htop
     wget
     curl
-    git
     fzf
     traceroute
     file
