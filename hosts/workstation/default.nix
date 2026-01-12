@@ -34,6 +34,9 @@
   services.ollama = {
     enable = true;
     package = pkgs.ollama-cuda;
+    environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = "65536";
+    };
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,

@@ -12,6 +12,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    (modulesPath + "/hardware/cpu/intel-npu.nix")
   ];
 
   boot.initrd.availableKernelModules = [
@@ -41,6 +42,10 @@
   swapDevices = [
     { device = "/dev/disk/by-uuid/e3652481-eb51-4aa4-a1e4-ea753e2b3db1"; }
   ];
+
+  hardware.cpu.intel.npu.enable = true;
+
+  hardware.enableRedistributableFirmware = true;
 
   hardware.graphics = {
     enable = true;
