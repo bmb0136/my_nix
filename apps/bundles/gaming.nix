@@ -1,0 +1,10 @@
+{
+  programs.steam.enable = true;
+  home-manager.sharedModules = [
+    ({ pkgs, ...}: {
+      home.packages = [
+        pkgs.prismlauncher
+      ];
+    })
+  ];
+}
