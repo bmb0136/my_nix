@@ -24,7 +24,7 @@ let
   port = 3002;
 in
 {
-  systemd.services.uploader = lib.mkif config.services.nginx.enable {
+  systemd.services.uploader = lib.mkIf config.services.nginx.enable {
     enable = true;
     description = "File uploader";
     wantedBy = [ "multi-user.target" ];
@@ -37,7 +37,7 @@ in
       ExecStart = ''${server}/bin/${server.name} -addr="${addr}:${port}" -upload-dir="/mnt/hdd/uploads/"'';
     };
   };
-  nginx.virtualhosts."files.manta.zt" = lib.mkif config.services.nginx.enable {
+  nginx.virtualhosts."files.manta.zt" = lib.mkIf config.services.nginx.enable {
     locations = {
       "/upload" = {
         proxyPass = "http://${addr}:${port}";
