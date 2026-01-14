@@ -11,4 +11,6 @@
   environment.systemPackages = [
     pkgs.vlc
   ];
+
+  services.flatpak.enable = true;
 }
