@@ -13,6 +13,7 @@
     ./gitea.nix
     ./vaultwarden.nix
     ./nginx
+    ./uploader
   ];
 
   # Bootloader.
