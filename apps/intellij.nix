@@ -3,15 +3,26 @@
   environment.systemPackages =
     let
       inherit (pkgs) jetbrains;
-      ide = jetbrains.idea-oss;
       system = pkgs.stdenv.hostPlatform.system;
+
+      mkIde =
+        {
+          name,
+          pkg,
+          plugins,
+        }:
+        (jetbrains.plugins.addPlugins pkg (
+          map (x: inputs.nix-jetbrains-plugins.plugins.${system}.${name}.${pkg.version}.${x}) plugins
+        ));
     in
     [
-      (jetbrains.plugins.addPlugins ide (
-        map (name: inputs.nix-jetbrains-plugins.plugins.${system}.idea.${ide.version}.${name}) [
+      (mkIde {
+        name = "idea";
+        pkg = jetbrains.idea-oss;
+        plugins = [
           "com.demonwav.minecraft-dev"
           "IdeaVIM"
-        ]
-      ))
+        ];
+      })
     ];
 }
