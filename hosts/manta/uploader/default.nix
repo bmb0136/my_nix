@@ -9,19 +9,22 @@ let
     name = "uploader";
     nativeBuildInputs = [ pkgs.go ];
 
+    src = ./.;
+
     buildPhase = ''
-      go build main.go
+      mkdir .cache
+      GOCACHE=$(realpath .cache) go build main.go
     '';
 
     installPhase = ''
-      mkdir "$out/bin"
+      mkdir -p "$out/bin"
 
       cp main "$out/bin/${name}"
     '';
   };
 
   addr = "127.0.0.1";
-  port = 3002;
+  port = toString 3002;
 in
 {
   systemd.services.uploader = lib.mkIf config.services.nginx.enable {
@@ -37,7 +40,7 @@ in
       ExecStart = ''${server}/bin/${server.name} -addr="${addr}:${port}" -upload-dir="/mnt/hdd/uploads/"'';
     };
   };
-  nginx.virtualhosts."files.manta.zt" = lib.mkIf config.services.nginx.enable {
+  services.nginx.virtualHosts."files.manta.zt" = lib.mkIf config.services.nginx.enable {
     locations = {
       "/upload" = {
         proxyPass = "http://${addr}:${port}";
@@ -45,7 +48,7 @@ in
       };
       "/" = {
         extraConfig = ''
-          root /mnt/hdd;
+          root /mnt/hdd/uploads;
           autoindex on;
         '';
       };

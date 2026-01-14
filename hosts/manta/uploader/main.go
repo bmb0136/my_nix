@@ -55,8 +55,9 @@ var uploadTpl = template.Must(template.New("upload").Parse(`
 	</p>
 	</form>
   {{ if .Message }}
-  <p>{{ .Message }}</p>
+	<p style="font-size: 1.75em">{{ .Message }}</p>
   {{ end }}
+	<button onclick="window.location = '/'" style="font-size: 1.75em; width: 40%; height: 3em;">Go Back</button>
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			if (window.history.replaceState) {
