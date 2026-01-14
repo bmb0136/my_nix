@@ -5,7 +5,9 @@
       home.packages = [
         pkgs.prismlauncher
         pkgs.discord
+        pkgs.obs-studio
       ];
     })
   ];
+  services.flatpak.enable = true;
 }

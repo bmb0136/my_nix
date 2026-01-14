@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../browser
@@ -6,5 +6,9 @@
     ../obsidian
     ./gaming.nix
     ../.
+  ];
+
+  environment.systemPackages = [
+    pkgs.vlc
   ];
 }

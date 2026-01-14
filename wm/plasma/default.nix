@@ -128,6 +128,7 @@ in
                     launchers = [
                       "applications:org.kde.dolphin.desktop"
                       "applications:chromium-browser.desktop"
+                      "applications:discord.desktop"
                       "applications:Alacritty.desktop"
                     ]
                     ++ lib.optionals home-config.bmb0136.obsidian.enable [
