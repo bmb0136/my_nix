@@ -149,28 +149,6 @@ in
             "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
             "services/systemsettings.desktop"._launch = "Meta+I";
             "services/dmenu.desktop"._launch = "Meta+R";
-
-            # Global keybinds for Chrome to avoid popup on every rebuild
-            "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-addSite" = [ ];
-            "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-switchEngine" = [ ];
-            "org.chromium.Chromium"."41529AAB007CA42346EBFC690192B4B1-toggle" = [ ];
-            "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-picker-mode" = [ ];
-            "org.chromium.Chromium"."5B167395AA116C916F6211AD24A9802F-enter-zapper-mode" = [ ];
-            "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_card = [ ];
-            "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_identity = [ ];
-            "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-autofill_login = [ ];
-            "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-generate_password = [ ];
-            "org.chromium.Chromium".CAA3DEE4BDD06AA9FAB6CC4FE6EF1ABB-lock_vault = [ ];
-            "org.chromium.Chromium"."79F2E1B179E9B4DAFB0027B5A3947A43-addSite" = [ ];
-            "org.chromium.Chromium"."79F2E1B179E9B4DAFB0027B5A3947A43-switchEngine" = [ ];
-            "org.chromium.Chromium"."79F2E1B179E9B4DAFB0027B5A3947A43-toggle" = [ ];
-            "org.chromium.Chromium".A436BC65C17E389B917C0C7534935598-autofill_card = [ ];
-            "org.chromium.Chromium".A436BC65C17E389B917C0C7534935598-autofill_identity = [ ];
-            "org.chromium.Chromium".A436BC65C17E389B917C0C7534935598-autofill_login = [ ];
-            "org.chromium.Chromium".A436BC65C17E389B917C0C7534935598-generate_password = [ ];
-            "org.chromium.Chromium".A436BC65C17E389B917C0C7534935598-lock_vault = [ ];
-            "org.chromium.Chromium".A6D0B3C8C0A5752D4C2692BA4D2D8F80-enter-picker-mode = [ ];
-            "org.chromium.Chromium".A6D0B3C8C0A5752D4C2692BA4D2D8F80-enter-zapper-mode = [ ];
           };
 
           configFile = {
