@@ -17,8 +17,11 @@ in
     enable = true;
     extraOpts = {
       ExtensionSettings = lib.genAttrs extensionIds (id: {
+        #installation_mode = "force_installed";
         toolbar_pin = "force_pinned";
+        #update_url = "https://clients2.google.com/service/update2/crx";
       });
+      #ExtensionInstallForcelist = map (x: x + ";https://clients2.google.com/service/update2/crx") extensionIds;
       MandatoryExtensionsForIncognitoNavigation = [
         # UBO
         "ddkjiahejlhfcafbddmgiahcphecmpfh"
@@ -62,7 +65,7 @@ in
           pkgs.ungoogled-chromium.override (prev: {
             enableWideVine = true;
             commandLineArgs = [
-              "--enable-logging --v=1"
+              #"--enable-logging --v=1"
             ];
           })
         );
