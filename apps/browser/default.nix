@@ -15,8 +15,12 @@
             { id, name }:
             {
               inherit id;
-              crxPath = ./crx/${name}.crx;
-              version = "0.0.0.0";
+              crxPath = ./crx/${name};
+              version = lib.pipe ./versions.json [
+                builtins.readFile
+                builtins.fromJSON
+                (builtins.getAttr id)
+              ];
             }
           ))
         ];

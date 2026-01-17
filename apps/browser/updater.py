@@ -1,7 +1,8 @@
 
 #!/usr/bin/env python3
 """
-Download Chrome extensions defined in extensions.json into the crx/ folder.
+Download Chrome extensions defined in extensions.json into the crx/ folder and
+write versions to versions.json as { "<id>": "<version>" }.
 
 Requirements:
 - Python 3.8+
@@ -16,6 +17,8 @@ Behavior:
   - Extracts the CRX download URL (codebase) and version from the <updatecheck> element.
   - Downloads the CRX and saves to ./crx/{name}
   - Prints the version downloaded.
+- Writes/updates versions.json mapping { "id": "version" } for successful items (atomic write).
+- Does NOT modify extensions.json.
 
 Exit code:
 - 0 if all downloads succeeded.
@@ -25,6 +28,7 @@ Exit code:
 import json
 import os
 import sys
+import tempfile
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -38,6 +42,17 @@ def die(msg: str, code: int = 1) -> None:
     print(f"Error: {msg}", file=sys.stderr)
     sys.exit(code)
 
+
+def safe_filename(name: str) -> str:
+    """
+    Make a conservative, filesystem-safe filename. If the resulting name is empty,
+    return a placeholder.
+    """
+    invalid = '<>:"/\\|?*\n\r\t'
+    cleaned = "".join(ch for ch in name if ch not in invalid).strip()
+    return cleaned or "extension.crx"
+
+
 def fetch_update_xml(session: requests.Session, chrome_version: str, ext_id: str) -> str:
     """
     Attempt to fetch XML update info for a given extension ID.
@@ -46,17 +61,15 @@ def fetch_update_xml(session: requests.Session, chrome_version: str, ext_id: str
     Returns the XML text, or raises on error.
     """
     headers = {
-        # Prefer XML payload
         "Accept": "application/xml,text/xml;q=0.9,*/*;q=0.8",
         "User-Agent": f"Chrome/{chrome_version}",
     }
 
-    # First attempt: redirect-style request (per your original URL).
+    # First attempt: redirect-style request (per the given URL).
     params = {
         "response": "redirect",
         "acceptformat": "crx2,crx3",
         "prodversion": chrome_version,
-        # 'x' param must contain 'id=<id>&uc'; requests will handle encoding
         "x": f"id={ext_id}&uc",
     }
     try:
@@ -78,13 +91,12 @@ def fetch_update_xml(session: requests.Session, chrome_version: str, ext_id: str
         raise RuntimeError(f"Failed to fetch XML update info (fallback): {e}") from e
 
 
-def find_updatecheck(node: ET.Element) -> ET.Element | None:
+def find_updatecheck(node: ET.Element):
     """
     Find the <updatecheck> element without relying on namespaces.
-    Searches depth-first and returns the first element whose tag endswith 'updatecheck'.
+    Returns the first element whose tag endswith 'updatecheck', or None.
     """
     for elem in node.iter():
-        # elem.tag may look like '{namespace}updatecheck' or 'updatecheck'
         if isinstance(elem.tag, str) and elem.tag.endswith("updatecheck"):
             return elem
     return None
@@ -93,8 +105,7 @@ def find_updatecheck(node: ET.Element) -> ET.Element | None:
 def parse_update_xml(xml_text: str) -> tuple[str, str]:
     """
     Parse the XML update payload and return (codebase_url, version).
-    Does not validate namespaces. Accepts XML with declaration.
-    Raises ValueError if required data isn't found.
+    No namespace validation; XML declaration is fine.
     """
     try:
         root = ET.fromstring(xml_text)
@@ -138,9 +149,30 @@ def download_file(session: requests.Session, url: str, dest: Path) -> None:
         raise RuntimeError(f"Failed to download {url}: {e}") from e
 
 
+def atomic_write_json(path: Path, obj) -> None:
+    """
+    Atomically write JSON to 'path' by writing to a temp file in the same directory
+    and then replacing it. Ensures UTF-8 encoding with pretty indenting.
+    """
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_fd, tmp_name = tempfile.mkstemp(prefix=path.name, suffix=".tmp", dir=str(path.parent))
+    try:
+        with os.fdopen(tmp_fd, "w", encoding="utf-8", newline="\n") as tmp:
+            json.dump(obj, tmp, ensure_ascii=False, indent=2)
+            tmp.write("\n")
+        os.replace(tmp_name, path)  # atomic on most platforms
+    except Exception:
+        try:
+            os.remove(tmp_name)
+        except Exception:
+            pass
+        raise
+
+
 def main() -> None:
     cwd = Path.cwd()
     extensions_json = cwd / "extensions.json"
+    versions_json = cwd / "versions.json"
     crx_dir = cwd / "crx"
 
     missing = []
@@ -164,8 +196,17 @@ def main() -> None:
     if not isinstance(data, list):
         die('extensions.json must be a JSON array of objects: [{"id": string, "name": string}, ...]')
 
+    # Start with existing versions (if any), then update only successful ones.
+    try:
+        existing_versions = json.loads(versions_json.read_text(encoding="utf-8")) if versions_json.is_file() else {}
+        if not isinstance(existing_versions, dict):
+            existing_versions = {}
+    except Exception:
+        existing_versions = {}
+
     session = requests.Session()
     any_fail = False
+    updated_versions = dict(existing_versions)  # copy
 
     for i, item in enumerate(data, start=1):
         if not isinstance(item, dict):
@@ -181,17 +222,26 @@ def main() -> None:
             any_fail = True
             continue
 
-        out_path = crx_dir / f"{name}.crx"
+        out_path = crx_dir / safe_filename(name)
 
         try:
             xml_text = fetch_update_xml(session, chrome_version, ext_id)
             codebase_url, version = parse_update_xml(xml_text)
             download_file(session, codebase_url, out_path)
+            updated_versions[ext_id] = version
             print(f"[{name}] Downloaded version {version} → {out_path}")
         except Exception as e:
             print(f"[{name}] Failed: {e}", file=sys.stderr)
             any_fail = True
             continue
+
+    # Write versions.json even if some failed, to persist successful ones.
+    try:
+        atomic_write_json(versions_json, updated_versions)
+        print(f"Versions written to {versions_json}")
+    except Exception as e:
+        print(f"Failed to write versions.json: {e}", file=sys.stderr)
+        any_fail = True
 
     if any_fail:
         sys.exit(1)
