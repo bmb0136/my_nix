@@ -20,5 +20,6 @@
     fzf
     traceroute
     file
+    unzip
   ];
 }
