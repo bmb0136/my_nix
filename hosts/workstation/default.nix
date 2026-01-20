@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  inputs,
+  config,
   pkgs,
   ...
 }:
@@ -35,9 +35,25 @@
     enable = true;
     package = pkgs.ollama-cuda;
     environmentVariables = {
-      OLLAMA_CONTEXT_LENGTH = "65536";
+      OLLAMA_CONTEXT_LENGTH = "48000";
     };
   };
+  services.open-webui =
+    let
+      ollama = config.services.ollama;
+    in
+    {
+      enable = ollama.enable;
+      port = 6901;
+      environment = {
+        OLLAMA_BASE_URL = "http://${ollama.host}:${toString ollama.port}";
+        OLLAMA_API_BASE_URL = "http://${ollama.host}:${toString ollama.port}/api";
+        ENABLE_WEB_SEARCH = "true";
+        WEB_SEARCH_ENGINE = "searxng";
+        WEB_SEARCH_TRUST_ENV = "true";
+        SEARXNG_QUERY_URL = "http://search.manta.zt/search?q=<query>";
+      };
+    };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
