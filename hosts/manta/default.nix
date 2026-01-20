@@ -14,6 +14,7 @@
     ./vaultwarden.nix
     ./nginx
     ./uploader
+    ./searxng.nix
   ];
 
   # Bootloader.

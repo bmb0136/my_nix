@@ -19,6 +19,12 @@
             ++ (map (x: ../users/${x}) users)
             ++ [
               inputs.sops-nix.nixosModules.sops
+              (
+                { pkgs, ... }:
+                {
+                  environment.systemPackages = [ pkgs.sops ];
+                }
+              )
               inputs.home-manager.nixosModules.home-manager
               {
                 home-manager = {

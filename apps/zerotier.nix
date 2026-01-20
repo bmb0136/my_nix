@@ -9,6 +9,7 @@
     "192.168.194.101 git.manta.zt"
     "192.168.194.101 bitwarden.manta.zt"
     "192.168.194.101 files.manta.zt"
+    "192.168.194.101 search.manta.zt"
 
     "192.168.194.100 nuc.zt"
   ];
