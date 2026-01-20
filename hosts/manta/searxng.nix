@@ -1,12 +1,21 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 {
   services.searx = {
     enable = true;
     domain = "search.manta.zt";
     redisCreateLocally = true;
-    settings.server = {
-      bind_address = "127.0.0.1";
-      port = "3003";
+    settings = {
+      server = {
+        bind_address = "127.0.0.1";
+        port = "3003";
+      };
+      search = {
+        formats = [ "html" "json" ];
+      };
     };
     environmentFile = config.sops.secrets."searxng/env".path;
   };
