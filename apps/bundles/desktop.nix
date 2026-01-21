@@ -6,6 +6,7 @@
     ../obsidian
     ./gaming.nix
     ../.
+    ../musescore.nix
   ];
 
   environment.systemPackages = [
