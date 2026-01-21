@@ -149,6 +149,17 @@ in
             "services/org.kde.plasma-systemmonitor.desktop"._launch = "Ctrl+Shift+Esc";
             "services/systemsettings.desktop"._launch = "Meta+I";
             "services/dmenu.desktop"._launch = "Meta+R";
+
+            "org.chromium.Chromium"."21E2625B47EFC58175349BC83990592B-addSite" = [ ];
+            "org.chromium.Chromium"."21E2625B47EFC58175349BC83990592B-switchEngine" = [ ];
+            "org.chromium.Chromium"."21E2625B47EFC58175349BC83990592B-toggle" = [ ];
+            "org.chromium.Chromium"."344C4667BF97B387EAC98753E9DCD034-autofill_card" = [ ];
+            "org.chromium.Chromium"."344C4667BF97B387EAC98753E9DCD034-autofill_identity" = [ ];
+            "org.chromium.Chromium"."344C4667BF97B387EAC98753E9DCD034-autofill_login" = [ ];
+            "org.chromium.Chromium"."344C4667BF97B387EAC98753E9DCD034-generate_password" = [ ];
+            "org.chromium.Chromium"."344C4667BF97B387EAC98753E9DCD034-lock_vault" = [ ];
+            "org.chromium.Chromium"."91A2BBF26EA1891DCF931C050AFA9D02-enter-picker-mode" = [ ];
+            "org.chromium.Chromium"."91A2BBF26EA1891DCF931C050AFA9D02-enter-zapper-mode" = [ ];
           };
 
           configFile = {
