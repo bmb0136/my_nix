@@ -14,7 +14,10 @@
         port = "3003";
       };
       search = {
-        formats = [ "html" "json" ];
+        formats = [
+          "html"
+          "json"
+        ];
       };
     };
     environmentFile = config.sops.secrets."searxng/env".path;

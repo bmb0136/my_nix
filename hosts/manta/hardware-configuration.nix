@@ -41,7 +41,9 @@
     device = "/dev/disk/by-uuid/f8aff5b7-51e4-4b2a-a1e9-262ae33dc5ff";
     fsType = "ext4";
     options = [
-      "defaults" "nofail" "user"
+      "defaults"
+      "nofail"
+      "user"
     ];
   };
 
