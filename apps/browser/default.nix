@@ -61,6 +61,7 @@ in
         package = (
           pkgs.ungoogled-chromium.override (prev: {
             enableWideVine = true;
+            commandLineArgs = "--disable-features=GlobalShortcutsPortal";
           })
         );
       };
