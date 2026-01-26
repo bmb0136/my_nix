@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   extensions = lib.pipe ./extensions.json [
     builtins.readFile
@@ -15,6 +15,7 @@ in
 {
   programs.chromium = {
     enable = true;
+    enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;
     extraOpts = {
       ExtensionSettings = lib.genAttrs extensionIds (id: {
         toolbar_pin = "force_pinned";
