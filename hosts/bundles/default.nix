@@ -8,6 +8,8 @@
 
   networking.networkmanager.enable = true;
 
+  programs.nix-ld.enable = true;
+
   services.automatic-timezoned.enable = true;
 
   # Select internationalisation properties.
