@@ -4,8 +4,9 @@
     stylix = {
       fonts = {
         monospace = {
-          package = pkgs.nerd-fonts.jetbrains-mono;
-          name = "JetBrains Mono Nerd Font";
+          #package = pkgs.nerd-fonts.jetbrains-mono;
+          package = pkgs.callPackage ./monocraft.nix {};
+          name = "Monocraft";
         };
         emoji = {
           package = pkgs.stdenv.mkDerivation {
