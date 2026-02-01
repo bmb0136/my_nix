@@ -21,5 +21,6 @@
     traceroute
     file
     unzip
+    fastfetch
   ];
 }
