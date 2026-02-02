@@ -20,6 +20,7 @@ if [[ $# -eq 0 ]]; then
     rb
     ak
     op
+    nf
   )
   command=$(join_by $'\n' "${ALL_COMMANDS[@]}" | search)
 else
@@ -85,6 +86,11 @@ case $command in
     fi
 
     tmux new-session -s "$name" -c "${projects["$name"]}"
+    ;;
+
+  # New flake (using flake-parts)
+  nf)
+    nix flake init -t github:hercules-ci/flake-parts
     ;;
 
   *)
