@@ -42,6 +42,7 @@
 
         imports = [
           inputs.treefmt-nix.flakeModule
+          ./modules
           ./hosts
         ];
 
