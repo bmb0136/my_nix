@@ -3,17 +3,18 @@ let
   folders = [
     "app"
   ];
-  subfolders = map (
-    f:
-    lib.pipe (builtins.readDir ./${f}) [
-      (lib.filterAttrs (n: v: v == "directory"))
-      (map (n: {
-        name = "${f}-${n}";
-        value = ./${f}/${n};
-      }))
-      (builtins.listToAttrs)
-    ]
-  ) folders;
+  subfolders = lib.mergeAttrsList (
+    map (
+      f:
+      lib.pipe (builtins.readDir ./${f}) [
+        (lib.filterAttrs (n: v: v == "directory"))
+        (builtins.mapAttrs (n: _: {
+          name = "${f}-${n}";
+          value = ./${f}/${n};
+        }))
+      ]
+    ) folders
+  );
 
   allModules = subfolders;
 in
