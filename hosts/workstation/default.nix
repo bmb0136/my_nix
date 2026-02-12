@@ -20,7 +20,11 @@
 
   networking.hostName = "workstation"; # Define your hostname.
 
-  time.hardwareClockInLocalTime = true;
+  time.hardwareClockInLocalTime = false;
+  #time.timeZone = "America/Chicago";
+  #services.automatic-timezoned.enable = pkgs.lib.mkForce false;
+
+  services.resolved.enable = true;
 
   virtualisation.docker = {
     enable = true;
