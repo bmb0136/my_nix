@@ -5,6 +5,13 @@
   ...
 }:
 {
+  imports = [
+    ../git
+    ../nvim
+    ../q
+    ../tmux
+  ];
+
   options.bmb0136.modules.app-basic.enable = lib.mkEnableOption "basic";
 
   config = lib.mkIf config.bmb0136.modules.app-basic.enable {
@@ -15,8 +22,14 @@
       cls = "clear";
       grep = "grep --color=auto";
     };
+    
+    bmb0136.modules = {
+      app-git.enable = true;
+      app-nvim.enable = true;
+      app-q.enable = true;
+      app-tmux.enable = true;
+    };
 
-    bmb0136.modules.app-git.enable = true;
 
     environment.systemPackages = with pkgs; [
       btop

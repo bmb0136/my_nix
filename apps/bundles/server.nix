@@ -2,8 +2,9 @@
 {
   imports = [
     ../.
-    ../zerotier.nix
   ];
+
+  bmb0136.modules.app-zerotier.enable = true;
 
   services.openssh.enable = true;
   services.openssh.settings.GatewayPorts = "clientspecified";

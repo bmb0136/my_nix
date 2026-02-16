@@ -1,13 +1,15 @@
 { pkgs, ... }:
 {
   imports = [
-    ../browser
-    ../alacritty.nix
-    ../obsidian
     ./gaming.nix
-    ../.
-    ../musescore.nix
   ];
+
+  bmb0136.modules = {
+    app-alacritty.enable = true;
+    app-browser.enable = true;
+    app-musescore.enable = true;
+    app-obsidian.enable = true;
+  };
 
   environment.systemPackages = [
     pkgs.vlc
