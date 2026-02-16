@@ -11,8 +11,6 @@
 
   networking.hostName = "hp-laptop";
 
-  time.hardwareClockInLocalTime = true;
-
   virtualisation.docker.enable = true;
 
   security.pki.certificateFiles = [
