@@ -1,14 +1,22 @@
 [
   {
     "id": "ddkjiahejlhfcafbddmgiahcphecmpfh",
-    "name": "ublock"
+    "name": "ublock",
+    "pin": true
   },
   {
     "id": "eimadpbcbfnmbkopoojfekhnkhdbieeh",
-    "name": "dark_reader"
+    "name": "dark_reader",
+    "pin": true
   },
   {
     "id": "nngceckbapebfimnlniiiahkandclblb",
-    "name": "bitwarden"
+    "name": "bitwarden",
+    "pin": true
+  },
+  {
+    "id": "cimiefiiaegbelhefglklhhakcgmhkai",
+    "name": "plasma_integration",
+    "pin": false
   }
 ]

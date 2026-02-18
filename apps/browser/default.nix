@@ -5,11 +5,14 @@ let
     builtins.fromJSON
   ];
 
-  extensionIds = map (builtins.getAttr "id") extensions;
-
   versions = lib.pipe ./versions.json [
     builtins.readFile
     builtins.fromJSON
+  ];
+
+  pins = lib.pipe extensions [
+    (builtins.filter (builtins.getAttr "pin"))
+    (map (builtins.getAttr "id"))
   ];
 in
 {
@@ -17,7 +20,7 @@ in
     enable = true;
     enablePlasmaBrowserIntegration = config.services.desktopManager.plasma6.enable;
     extraOpts = {
-      ExtensionSettings = lib.genAttrs extensionIds (id: {
+      ExtensionSettings = lib.genAttrs pins (id: {
         toolbar_pin = "force_pinned";
       });
       MandatoryExtensionsForIncognitoNavigation = [
@@ -30,7 +33,7 @@ in
   };
   environment.systemPackages = lib.pipe extensions [
     (map (
-      { id, name }:
+      { id, name, ... }:
       {
         inherit id name;
         version = versions.${id};
