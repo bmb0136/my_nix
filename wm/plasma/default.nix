@@ -179,6 +179,9 @@ in
 
             # Disable Touchscreen
             kcminputrc."Libinput/3823/49326/eGalax Inc. eGalaxTouch EXC3200-2505-09.00.00.00".Enabled = false;
+
+            # Disable browser history search in start menu
+            krunnerrc.Plugins.browserhistoryEnabled = false;
           };
         };
       }
