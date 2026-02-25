@@ -5,8 +5,9 @@
       fonts = {
         monospace = {
           package = pkgs.nerd-fonts.jetbrains-mono;
+          name = "JetBrains Mono Nerd Font";
           #package = pkgs.callPackage ./monocraft.nix {};
-          name = "Monocraft";
+          #name = "Monocraft";
         };
         emoji = {
           package = pkgs.stdenv.mkDerivation {
