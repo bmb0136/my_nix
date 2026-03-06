@@ -11,6 +11,8 @@ inputs.nixpkgs.lib.nixosSystem {
     modules
     ++ (map (x: ../users/${x}) users)
     ++ [
+      ./bundles/default.nix
+      ../apps/default.nix
       inputs.sops-nix.nixosModules.sops
       (
         { pkgs, ... }:
