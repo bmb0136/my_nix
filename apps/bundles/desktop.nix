@@ -12,6 +12,7 @@
   environment.systemPackages = [
     pkgs.vlc
     pkgs.libreoffice
+    pkgs.audacity
   ];
 
   services.printing.enable = true;
