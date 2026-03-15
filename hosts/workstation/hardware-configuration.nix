@@ -21,9 +21,28 @@
     "ahci"
     "usbhid"
   ];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.kernelModules = [
+    "vfio_pci"
+    "vfio"
+    "vfio_iommu_type1"
+  ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [
+    "intel_iommu=on"
+    "vfio-pci.ids=10de:28b0,10de:22be"
+  ];
+
+  programs.virt-manager.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      #swtpm.enable = true;
+    };
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/f84646ca-0c2b-4b29-849a-ae9adedc13c9";
