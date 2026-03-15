@@ -1,17 +1,45 @@
 {
+  self,
   inputs,
   ...
 }:
 {
   flake = {
-    lib.mkHostExt = (import ./mkHostExt.nix) inputs;
-    nixosConfigurations =
+    nixosModules =
       let
-        mkHost = (import ./mkHost.nix) inputs;
+        mkBaseModule =
+          {
+            modules,
+            users,
+          }:
+          {
+            imports =
+              modules
+              ++ (map (x: ../users/${x}) users)
+              ++ [
+                ./bundles/default.nix
+                ../apps/default.nix
+                inputs.sops-nix.nixosModules.sops
+                (
+                  { pkgs, ... }:
+                  {
+                    environment.systemPackages = [ pkgs.sops ];
+                  }
+                )
+                inputs.home-manager.nixosModules.home-manager
+                {
+                  home-manager = {
+                    backupFileExtension = "bak";
+                    overwriteBackup = true;
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                  };
+                }
+              ];
+          };
       in
       {
-        hp-laptop = mkHost {
-          system = "x86_64-linux";
+        hp-laptop = mkBaseModule {
           modules = [
             ./hp-laptop
             ./bundles/laptop.nix
@@ -20,8 +48,7 @@
           ];
           users = [ "brandon" ];
         };
-        workstation = mkHost {
-          system = "x86_64-linux";
+        workstation = mkBaseModule {
           modules = [
             ./workstation
             ./bundles/desktop.nix
@@ -30,8 +57,7 @@
           ];
           users = [ "brandon" ];
         };
-        manta = mkHost {
-          system = "x86_64-linux";
+        manta = mkBaseModule {
           modules = [
             ./manta
             ./bundles/server.nix
@@ -39,5 +65,30 @@
           users = [ "jelly" ];
         };
       };
+    nixosConfigurations =
+      let
+        mkHost =
+          {
+            system,
+            base,
+          }:
+          inputs.nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = { inherit inputs; };
+            modules = [ base ];
+          };
+        hosts = {
+          hp-laptop = "x86_64-linux";
+          workstation = "x86_64-linux";
+          manta = "x86_64-linux";
+        };
+      in
+      builtins.mapAttrs (
+        n: v:
+        mkHost {
+          system = v;
+          base = self.nixosModules.${n};
+        }
+      ) hosts;
   };
 }
