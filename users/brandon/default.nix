@@ -8,7 +8,6 @@
       "wheel"
       "networkmanager"
       "docker"
-      "libvirtd"
     ];
   };
   home-manager.users.brandon =
