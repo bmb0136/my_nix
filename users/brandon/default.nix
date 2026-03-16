@@ -1,15 +1,15 @@
-{ ... }:
+{ config, ... }:
 {
   users.users.brandon = {
     isNormalUser = true;
     home = "/home/brandon";
     description = "Brandon Buckley";
+    hashedPasswordFile = config.sops.secrets.brandon-password.path;
     extraGroups = [
       "wheel"
       "networkmanager"
       "docker"
     ];
-    initialPassword = "changeme";
   };
   home-manager.users.brandon =
     { ... }:
