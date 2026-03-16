@@ -1,5 +1,6 @@
 { config, ... }:
 {
+  sops.secrets.brandon-password.neededForUsers = true;
   users.users.brandon = {
     isNormalUser = true;
     home = "/home/brandon";
