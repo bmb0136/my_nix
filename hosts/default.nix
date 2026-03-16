@@ -7,63 +7,46 @@
   flake = {
     nixosModules =
       let
-        mkBaseModule =
-          {
-            modules,
-            users,
-          }:
-          {
-            imports =
-              modules
-              ++ (map (x: ../users/${x}) users)
-              ++ [
-                ./bundles/default.nix
-                ../apps/default.nix
-                inputs.sops-nix.nixosModules.sops
-                (
-                  { pkgs, ... }:
-                  {
-                    environment.systemPackages = [ pkgs.sops ];
-                  }
-                )
-                inputs.home-manager.nixosModules.home-manager
-                {
-                  home-manager = {
-                    backupFileExtension = "bak";
-                    overwriteBackup = true;
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                  };
-                }
-              ];
-          };
+        mkBaseModule = modules: {
+          imports = modules ++ [
+            ./bundles/default.nix
+            ../apps/default.nix
+            inputs.sops-nix.nixosModules.sops
+            (
+              { pkgs, ... }:
+              {
+                environment.systemPackages = [ pkgs.sops ];
+              }
+            )
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bak";
+                overwriteBackup = true;
+                useGlobalPkgs = true;
+                useUserPackages = true;
+              };
+            }
+          ];
+        };
       in
       {
-        hp-laptop = mkBaseModule {
-          modules = [
-            ./hp-laptop
-            ./bundles/laptop.nix
-            ../apps/bundles/coding.nix
-            ../apps/zerotier.nix
-          ];
-          users = [ "brandon" ];
-        };
-        workstation = mkBaseModule {
-          modules = [
-            ./workstation
-            ./bundles/desktop.nix
-            ../apps/bundles/coding.nix
-            ../apps/zerotier.nix
-          ];
-          users = [ "brandon" ];
-        };
-        manta = mkBaseModule {
-          modules = [
-            ./manta
-            ./bundles/server.nix
-          ];
-          users = [ "jelly" ];
-        };
+        hp-laptop = mkBaseModule [
+          ./hp-laptop
+          ./bundles/laptop.nix
+          ../apps/bundles/coding.nix
+          ../apps/zerotier.nix
+        ];
+        workstation = mkBaseModule [
+          ./workstation
+          ./bundles/desktop.nix
+          ../apps/bundles/coding.nix
+          ../apps/zerotier.nix
+        ];
+        manta = mkBaseModule [
+          ./manta
+          ./bundles/server.nix
+        ];
       };
     nixosConfigurations =
       let
@@ -71,22 +54,32 @@
           {
             system,
             base,
+            users,
           }:
           inputs.nixpkgs.lib.nixosSystem {
             inherit system;
             specialArgs = { inherit inputs; };
-            modules = [ base ];
+            modules = [ base ] ++ (map (x: ../users/${x}) users);
           };
         hosts = {
-          hp-laptop = "x86_64-linux";
-          workstation = "x86_64-linux";
-          manta = "x86_64-linux";
+          hp-laptop = {
+            system = "x86_64-linux";
+            users = [ "brandon" ];
+          };
+          workstation = {
+            system = "x86_64-linux";
+            users = [ "brandon" ];
+          };
+          manta = {
+            system = "x86_64-linux";
+            users = [ "jelly" ];
+          };
         };
       in
       builtins.mapAttrs (
         n: v:
         mkHost {
-          system = v;
+          inherit (v) system users;
           base = self.nixosModules.${n};
         }
       ) hosts;
