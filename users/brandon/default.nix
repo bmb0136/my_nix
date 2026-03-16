@@ -9,6 +9,7 @@
       "networkmanager"
       "docker"
     ];
+    initialPassword = "changeme";
   };
   home-manager.users.brandon =
     { ... }:
