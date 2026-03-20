@@ -24,6 +24,7 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.kernelParams = [ "systemd.swap=0" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/f84646ca-0c2b-4b29-849a-ae9adedc13c9";
@@ -40,7 +41,10 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/e3652481-eb51-4aa4-a1e4-ea753e2b3db1"; }
+    {
+      device = "/dev/disk/by-uuid/e3652481-eb51-4aa4-a1e4-ea753e2b3db1";
+
+    }
   ];
 
   hardware.cpu.intel.npu.enable = true;
