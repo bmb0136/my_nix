@@ -182,6 +182,9 @@ in
 
             # Disable browser history search in start menu
             krunnerrc.Plugins.browserhistoryEnabled = false;
+
+            # Default browser because discord keeps making itself the default >:( (why)
+            kdeglobals.General.BrowserApplication = "chromium-browser.desktop";
           };
         };
       }
