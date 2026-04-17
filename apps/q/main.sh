@@ -21,6 +21,7 @@ if [[ $# -eq 0 ]]; then
     ak
     op
     nf
+    py
   )
   command=$(join_by $'\n' "${ALL_COMMANDS[@]}" | search)
 else
@@ -91,6 +92,11 @@ case $command in
   # New flake (using flake-parts)
   nf)
     nix flake init -t github:hercules-ci/flake-parts
+    ;;
+
+  # Run a python nix-shell with packages
+  py)
+    nix-shell -p "python3.withPackages (pp: with pp; [ $* ])" --run python3
     ;;
 
   *)
