@@ -90,6 +90,15 @@ in
                 vendorId = "046d";
                 productId = "405e";
               }
+              # Model O
+              {
+                enable = true;
+                acceleration = 0.2;
+                accelerationProfile = "none";
+                name = "Glorious Model O";
+                vendorId = "258a";
+                productId = "0036";
+              }
             ];
           };
 
