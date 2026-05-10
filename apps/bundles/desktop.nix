@@ -13,6 +13,9 @@
     pkgs.vlc
     pkgs.libreoffice
     pkgs.audacity
+    pkgs.gimp
+    pkgs.krita
+    pkgs.blender
   ];
 
   services.printing.enable = true;
