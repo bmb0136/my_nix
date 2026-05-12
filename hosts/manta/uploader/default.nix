@@ -37,7 +37,11 @@ in
       User = config.services.nginx.user;
       Group = config.services.nginx.group;
       Restart = "always";
+      RestartSec = "1s";
       ExecStart = ''${server}/bin/${server.name} -addr="${addr}:${port}" -upload-dir="/mnt/hdd/uploads/"'';
+    };
+    unitConfig = {
+      StartLimitIntervalSec = "0";
     };
   };
   services.nginx.virtualHosts."files.manta.zt" = lib.mkIf config.services.nginx.enable {
