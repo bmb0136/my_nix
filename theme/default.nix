@@ -18,6 +18,12 @@
       base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     };
 
+    home-manager.sharedModules = [
+      {
+        gtk.gtk4.theme = null;
+      }
+    ];
+
     # SDDM Compat
     services.displayManager.sddm = lib.mkIf config.services.displayManager.sddm.enable {
       theme = "breeze";
