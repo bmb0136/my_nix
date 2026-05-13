@@ -25,6 +25,9 @@ let
 
   addr = "127.0.0.1";
   port = toString 3002;
+
+  # TODO: move back to secondary drive once replaced
+  uploadDir = "/var/lib/uploads/";
 in
 {
   systemd.services.uploader = lib.mkIf config.services.nginx.enable {
@@ -38,7 +41,7 @@ in
       Group = config.services.nginx.group;
       Restart = "always";
       RestartSec = "1s";
-      ExecStart = ''${server}/bin/${server.name} -addr="${addr}:${port}" -upload-dir="/mnt/hdd/uploads/"'';
+      ExecStart = ''${server}/bin/${server.name} -addr="${addr}:${port}" -upload-dir="${uploadDir}"'';
     };
     unitConfig = {
       StartLimitIntervalSec = "0";
@@ -52,7 +55,7 @@ in
       };
       "/" = {
         extraConfig = ''
-          root /mnt/hdd/uploads;
+          root ${uploadDir};
           autoindex on;
         '';
       };

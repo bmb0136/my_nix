@@ -28,6 +28,7 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/886fb304-3ec0-4248-bfdb-24b6eb6a0cdd";
     fsType = "ext4";
+    options = [ "defaults" "nofail" ];
   };
 
   fileSystems."/boot" = {
@@ -39,10 +40,11 @@
     ];
   };
 
-  fileSystems."/mnt/hdd" = {
-    device = "/dev/disk/by-uuid/f8aff5b7-51e4-4b2a-a1e9-262ae33dc5ff";
-    fsType = "ext4";
-  };
+  # TODO: replace w/ new drive (RIP hdd)
+  #fileSystems."/mnt/hdd" = {
+  #device = "/dev/disk/by-uuid/f8aff5b7-51e4-4b2a-a1e9-262ae33dc5ff";
+  #fsType = "ext4";
+  #};
 
   swapDevices = [
     { device = "/dev/disk/by-uuid/a83eee4c-48c2-4408-94d0-244fbab6c7d2"; }
