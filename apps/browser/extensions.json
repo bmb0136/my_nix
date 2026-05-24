@@ -18,5 +18,10 @@
     "id": "cimiefiiaegbelhefglklhhakcgmhkai",
     "name": "plasma_integration",
     "pin": false
+  },
+  {
+    "id": "mnjggcdmjocbbbhaepdhchncahnbgone",
+    "name": "sponsor_block",
+    "pin": false
   }
 ]
