@@ -38,18 +38,18 @@ in
         inherit nvim-c;
         nvim-cpp = nvim-c;
 
-        nvim-rust = my_nvim.rust.override {
-          inherit modules;
-          enable-c = true;
-        };
+        #nvim-rust = my_nvim.rust.override {
+        #  inherit modules;
+        #  enable-c = true;
+        #};
 
         nvim-py = my_nvim.python.override { inherit modules; };
 
-        inherit nvim-cs;
-        nvim-fs = nvim-cs;
+        #inherit nvim-cs;
+        #nvim-fs = nvim-cs;
 
-        inherit nvim-js;
-        nvim-ts = nvim-js;
+        #inherit nvim-js;
+        #nvim-ts = nvim-js;
       };
       replaceName =
         name: val:
