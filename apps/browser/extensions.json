@@ -23,5 +23,10 @@
     "id": "mnjggcdmjocbbbhaepdhchncahnbgone",
     "name": "sponsor_block",
     "pin": false
+  },
+  {
+    "id": "hkgfoiooedgoejojocmhlaklaeopbecg",
+    "name": "pip",
+    "pin": false
   }
 ]
