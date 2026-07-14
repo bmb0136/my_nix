@@ -20,7 +20,7 @@
 
     home-manager.sharedModules = [
       {
-        gtk.gtk4.theme = null;
+        #gtk.gtk4.theme = null;
       }
     ];
 
