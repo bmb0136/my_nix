@@ -4,7 +4,7 @@
 }:
 {
   environment.systemPackages = [
-    (pkgs.callPackage ./package.nix {})
+    pkgs.musescore
     pkgs.muse-sounds-manager
   ];
 }
