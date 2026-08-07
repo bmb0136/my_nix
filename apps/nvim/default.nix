@@ -45,7 +45,7 @@ in
 
         nvim-py = my_nvim.python.override { inherit modules; };
 
-        #inherit nvim-cs;
+        inherit nvim-cs;
         #nvim-fs = nvim-cs;
 
         #inherit nvim-js;
