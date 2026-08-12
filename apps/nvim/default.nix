@@ -21,7 +21,7 @@ in
   ]
   ++ lib.optionals config.bmb0136.nvim.add-lang-nvims (
     let
-      nvim-c = my_nvim.c.override { inherit modules; };
+      nvim-c = my_nvim.clang.override { inherit modules; };
       nvim-cs = my_nvim.csharp.override {
         inherit modules;
         enable-fsharp = true;
