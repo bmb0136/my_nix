@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ../browser
@@ -15,7 +15,7 @@
     pkgs.audacity
     pkgs.gimp
     pkgs.krita
-    pkgs.blender
+    (pkgs.blender.override { cudaSupport = config.hardware.nvidia.enabled; })
   ];
 
   services.printing.enable = true;
