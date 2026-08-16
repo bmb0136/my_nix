@@ -52,6 +52,8 @@
 
   hardware.bluetooth.enable = true;
 
+  networking.networkmanager.wifi.powersave = false;
+
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
