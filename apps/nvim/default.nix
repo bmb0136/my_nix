@@ -22,17 +22,17 @@ in
   ++ lib.optionals config.bmb0136.nvim.add-lang-nvims (
     let
       nvim-c = my_nvim.clang.override { inherit modules; };
-      nvim-cs = my_nvim.csharp.override {
-        inherit modules;
+      nvim-cs = my_nvim.csharp.override (prev: {
+        modules = prev.modules ++ modules;
         enable-fsharp = true;
         enable-html = true;
         enable-sql = true;
-      };
-      nvim-js = my_nvim.ts.override {
-        inherit modules;
-        enable-svelte = true;
-        enable-tailwind = true;
-      };
+      });
+      #nvim-js = my_nvim.ts.override {
+      #  inherit modules;
+      #  enable-svelte = true;
+      #  enable-tailwind = true;
+      #};
 
       nvims = {
         inherit nvim-c;
