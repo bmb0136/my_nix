@@ -22,5 +22,8 @@
     file
     unzip
     fastfetch
+    pv
+    xxd
+    ffmpeg
   ];
 }
