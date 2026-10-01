@@ -21,8 +21,8 @@
   networking.hostName = "workstation"; # Define your hostname.
 
   time.hardwareClockInLocalTime = false;
-  #time.timeZone = "America/Chicago";
-  #services.automatic-timezoned.enable = pkgs.lib.mkForce false;
+  time.timeZone = "America/Chicago";
+  services.automatic-timezoned.enable = pkgs.lib.mkForce false;
 
   services.resolved.enable = true;
 
