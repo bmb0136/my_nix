@@ -141,7 +141,7 @@ in
                       "applications:Alacritty.desktop"
                     ]
                     ++ lib.optionals home-config.bmb0136.obsidian.enable [
-                      "applications:obsidian.desktop"
+                      "applications:md.obsidian.Obsidian.desktop"
                     ];
                   };
                 }
