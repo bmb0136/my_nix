@@ -65,9 +65,10 @@
     openFirewall = true;
   };
 
-  # LocalSend
+  # 53317 LocalSend
+  # 25565 Minecraft (for LAN)
   networking.firewall.allowedUDPPorts = [ 53317 ];
-  networking.firewall.allowedTCPPorts = [ 53317 ];
+  networking.firewall.allowedTCPPorts = [ 53317 25565 ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
