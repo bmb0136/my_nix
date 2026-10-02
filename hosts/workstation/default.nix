@@ -37,7 +37,7 @@
   ];
 
   services.ollama = {
-    enable = false; # broken right now
+    enable = true;
     package = pkgs.ollama-cuda;
     environmentVariables = {
       OLLAMA_CONTEXT_LENGTH = "48000";
@@ -49,6 +49,24 @@
     in
     {
       enable = ollama.enable;
+      package =
+        let
+          python = pkgs.python3.override {
+            self = python;
+            packageOverrides =
+              pyfinal: pyprev:
+              (pkgs.lib.genAttrs [
+                # Broken tests
+                "torchcodec"
+                # Tests take forever
+                "torchaudio"
+              ])
+                (name: pyprev.${name}.overridePythonAttrs { doCheck = false; });
+          };
+        in
+        pkgs.open-webui.override {
+          python3Packages = python.pkgs;
+        };
       port = 6901;
       environment = {
         OLLAMA_BASE_URL = "http://${ollama.host}:${toString ollama.port}";
@@ -68,7 +86,10 @@
   # 53317 LocalSend
   # 25565 Minecraft (for LAN)
   networking.firewall.allowedUDPPorts = [ 53317 ];
-  networking.firewall.allowedTCPPorts = [ 53317 25565 ];
+  networking.firewall.allowedTCPPorts = [
+    53317
+    25565
+  ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
