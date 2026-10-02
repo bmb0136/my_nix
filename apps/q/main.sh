@@ -88,7 +88,7 @@ case $command in
     use_shell_nix=0
     shell_pkgs=()
     query=()
-    for ((n = 0; n <= $#; n++)); do
+    for ((n = 1; n <= $#; n++)); do
 
       if [[ ${!n} == "-p" ]]; then
         use_inline_pkgs=1
@@ -106,13 +106,13 @@ case $command in
         shell_pkgs+=("${!n}")
       fi
     done
-
+    
     if (( use_inline_pkgs == 1 )) && (( use_shell_nix == 1 )); then
       log_error Mixing -p and -s is not allowed
       exit 1
     fi
 
-    name=$(join_by $'\n' "${keys[@]}" | search "${query[@]}")
+    name=$(join_by $'\n' "${keys[@]}" | search "${query[*]}")
     if [[ -z "$name" ]]; then
       exit 0
     fi
