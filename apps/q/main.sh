@@ -67,7 +67,7 @@ case $command in
     ;;
   
   # Open project (folder in ~/src)
-  # Also accepts:
+  # Also accepts either:
   # -p to use a nix-shell with the provided packages
   # -s to use a nix-shell using the shell.nix/default.nix in the project folder
   op)
@@ -84,37 +84,43 @@ case $command in
       exit 1
     fi
 
-    i=-1
+    use_inline_pkgs=0
     use_shell_nix=0
+    shell_pkgs=()
+    query=()
     for ((n = 0; n <= $#; n++)); do
-      if (( i < 0 )) && [[ ${!n} == "-p" ]]; then
-        i=$n
-      elif (( use_shell_nix == 0 )) && [[ ${!n} == "-s" ]]; then
+
+      if [[ ${!n} == "-p" ]]; then
+        use_inline_pkgs=1
+        continue
+      fi
+
+      if [[ ${!n} == "-s" ]]; then
         use_shell_nix=1
+        continue
+      fi
+
+      if (( use_inline_pkgs == 0 )); then
+        query+=("${!n}")
+      else
+        shell_pkgs+=("${!n}")
       fi
     done
 
-    if (( i >= 0 )) && (( use_shell_nix == 1 )); then
+    if (( use_inline_pkgs == 1 )) && (( use_shell_nix == 1 )); then
       log_error Mixing -p and -s is not allowed
       exit 1
     fi
 
-    if (( i >= 0 )); then
-      p=( "${@:i+1}" )
-      q=( "${@:1:i-1}" )
-    else
-      q=( "$@" )
-    fi
-
-    name=$(join_by $'\n' "${keys[@]}" | search "${q[@]}")
+    name=$(join_by $'\n' "${keys[@]}" | search "${query[@]}")
     if [[ -z "$name" ]]; then
       exit 0
     fi
 
     if (( use_shell_nix == 1 )); then
       nix-shell "${projects["$name"]}" --command "tmux new-session -s \"$name\" -c \"${projects["$name"]}\""
-    elif (( i >= 0 )); then
-      nix-shell -p "${p[@]}" --command "tmux new-session -s \"$name\" -c \"${projects["$name"]}\""
+    elif (( use_inline_pkgs == 1 )); then
+      nix-shell -p "${shell_pkgs[@]}" --command "tmux new-session -s \"$name\" -c \"${projects["$name"]}\""
     else
       tmux new-session -s "$name" -c "${projects["$name"]}"
     fi
