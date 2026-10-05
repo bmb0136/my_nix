@@ -15,6 +15,7 @@
     ./nginx
     ./uploader
     ./searxng.nix
+    ./dnsmasq.nix
   ];
 
   # Bootloader.
