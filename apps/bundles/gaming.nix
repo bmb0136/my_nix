@@ -6,7 +6,7 @@
       { pkgs, ... }:
       {
         home.packages = [
-          pkgs.prismlauncher
+          (pkgs.callPackage ../prism-launcher.nix {})
           pkgs.discord
           pkgs.obs-studio
         ];
