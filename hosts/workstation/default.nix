@@ -28,7 +28,13 @@
 
   virtualisation.docker = {
     enable = true;
-    daemon.settings.features.cdi = true;
+    daemon.settings = {
+      features.cdi = true;
+      builder.gc = {
+        enabled = true;
+        defaultKeepStorage = "25GB";
+      };
+    };
   };
   hardware.nvidia-container-toolkit.enable = true;
 
@@ -40,7 +46,8 @@
     enable = true;
     package = pkgs.ollama-cuda;
     environmentVariables = {
-      OLLAMA_CONTEXT_LENGTH = "48000";
+      OLLAMA_CONTEXT_LENGTH = "128000";
+      CUDA_VISIBLE_DEVICES = "GPU-88b0f37f-d3ae-56eb-9669-773d1e56a18c";
     };
   };
   services.open-webui =
@@ -71,10 +78,11 @@
       environment = {
         OLLAMA_BASE_URL = "http://${ollama.host}:${toString ollama.port}";
         OLLAMA_API_BASE_URL = "http://${ollama.host}:${toString ollama.port}/api";
-        ENABLE_WEB_SEARCH = "true";
-        WEB_SEARCH_ENGINE = "searxng";
-        WEB_SEARCH_TRUST_ENV = "true";
-        SEARXNG_QUERY_URL = "http://search.manta.zt/search?q=<query>";
+        # search is broken
+        #ENABLE_WEB_SEARCH = "true";
+        #WEB_SEARCH_ENGINE = "searxng";
+        #WEB_SEARCH_TRUST_ENV = "true";
+        #SEARXNG_QUERY_URL = "http://search.manta.zt/search?q=<query>";
       };
     };
 
